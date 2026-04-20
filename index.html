@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>体能小勇士·个性化作业生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #eef2f5;
+            font-family: 'PingFang SC', '微软雅黑', '宋体', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 20px 12px 40px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+            padding: 20px 18px 35px;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #1e466e;
+            margin-bottom: 6px;
+        }
+        .sub {
+            text-align: center;
+            color: #5a6e7c;
+            font-size: 13px;
+            border-bottom: 1px solid #e0e7ed;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .step-guide {
+            background: #fef7e0;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #b45f06;
+            border-left: 5px solid #ff8c42;
+        }
+        .step-guide strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        .step-guide p {
+            margin: 0;
+            line-height: 1.4;
+        }
+        .ai-box {
+            background: #e8f4f8;
+            border-radius: 24px;
+            padding: 20px 18px;
+            margin: 15px 0 20px;
+            border: 1px solid #cde5ef;
+        }
+        .ai-box h3 {
+            font-size: 20px;
+            color: #1e466e;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin: 14px 0 5px;
+            color: #2c3e4e;
+        }
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 16px;
+            border-radius: 16px;
+            border: 1px solid #cbdbe0;
+            background: white;
+            margin-bottom: 5px;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        .checkbox-group label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: normal;
+            margin: 0;
+            background: #f0f4f9;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #ff8c42;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 48px;
+            width: 100%;
+            margin: 18px 0 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        button:active {
+            background-color: #e67e22;
+            transform: scale(0.98);
+        }
+        .output {
+            background: white;
+            border-left: 6px solid #ff8c42;
+            padding: 16px;
+            border-radius: 20px;
+            margin-top: 18px;
+            font-size: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        @media (max-width: 500px) {
+            body { padding: 12px; }
+            .container { padding: 16px; }
+            .checkbox-group label { font-size: 13px; padding: 4px 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🏅 体能小勇士 · 个性化作业生成器</h1>
+    <div class="sub">人教版体能·水平二 | 三年级第一学期 | AI定制推荐</div>
+
+    <!-- 操作说明 -->
+    <div class="step-guide">
+        <strong>📋 操作说明（三步轻松定制）</strong>
+        <p>1️⃣ 选择最近完成的课时 → 2️⃣ 根据孩子实际情况选择完成质量 → 3️⃣ 如有下列身体表现，点击👆（可多选） → 最后点击「生成我的个性化作业」按钮，即可获得专属练习方案。</p>
+    </div>
+
+    <div class="ai-box">
+        <h3>🤖 智能定制 · 专属体能作业</h3>
+        <p style="margin-bottom: 10px; color: #2c6280;">根据孩子近期的作业完成情况和身体表现，AI会为你推荐最适合的补充练习（每天5-8分钟，简单有趣）。</p>
+
+        <label>📚 最近完成的课时</label>
+        <select id="lessonSelect">
+            <option value="1">第1课时 · 反应与灵敏（照镜子/高山救援）</option>
+            <option value="2">第2课时 · 反应与灵敏（声东击西/长江黄河）</option>
+            <option value="3">第3课时 · 反应与灵敏（极限攻防/守卫者）</option>
+            <option value="4">第4课时 · 平衡协调（稳中求胜/击脚跳）</option>
+            <option value="5">第5课时 · 平衡协调（小推车/小鸡啄米）</option>
+            <option value="6">第6课时 · 体能比赛（障碍跑酷/跳绳）</option>
+        </select>
+
+        <label>⭐ 完成质量</label>
+        <select id="qualitySelect">
+            <option value="good">优秀 ✅ 动作标准，坚持完成</option>
+            <option value="medium">良好 📈 基本完成，有少量困难</option>
+            <option value="improve">待加强 🔄 部分动作不标准或未完成</option>
+        </select>
+
+        <label>🧒 孩子的身体表现（如果有下面的表现，请点击👆（可多选））</label>
+        <div class="checkbox-group" id="checkboxGroup">
+            <label><input type="checkbox" value="fatigue"> 容易疲劳</label>
+            <label><input type="checkbox" value="balance"> 单脚站立不稳</label>
+            <label><input type="checkbox" value="reaction"> 反应速度较慢</label>
+            <label><input type="checkbox" value="coord"> 手脚协调性差</label>
+            <label><input type="checkbox" value="core"> 核心力量不足（平板支撑短）</label>
+        </div>
+
+        <button id="generateBtn">✨ 生成我的个性化作业 ✨</button>
+
+        <div id="resultArea" class="output">
+            👆 点击上方按钮，AI将为您生成定制练习方案（可截图保存）。
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const generateBtn = document.getElementById('generateBtn');
+        const lessonSelect = document.getElementById('lessonSelect');
+        const qualitySelect = document.getElementById('qualitySelect');
+        const resultDiv = document.getElementById('resultArea');
+
+        function getSelectedBodyIssues() {
+            const issues = [];
+            const checkboxes = document.querySelectorAll('#checkboxGroup input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const val = cb.value;
+                    if (val === 'fatigue') issues.push('fatigue');
+                    else if (val === 'balance') issues.push('balance');
+                    else if (val === 'reaction') issues.push('reaction');
+                    else if (val === 'coord') issues.push('coord');
+                    else if (val === 'core') issues.push('core');
+                }
+            });
+            return issues;
+        }
+
+        generateBtn.addEventListener('click', function() {
+            const lesson = lessonSelect.value;
+            const quality = qualitySelect.value;
+            const issues = getSelectedBodyIssues();
+
+            let suggestions = [];
+
+            // 1. 完成质量相关建议
+            if (quality === 'improve') {
+                suggestions.push('🔁 重新练习本课时所有基础动作，重点观看AI示范视频（班级群可获取），每个动作多练2组。');
+            } else if (quality === 'medium') {
+                suggestions.push('👍 选择本课时【挑战层⭐⭐】作业再尝试一次，争取突破自己的记录。');
+            } else {
+                suggestions.push('🌟 挑战本课时【创意层⭐⭐⭐】作业，发挥想象力创编新玩法。');
+            }
+
+            // 2. 身体表现专项
+            if (issues.includes('fatigue')) {
+                suggestions.push('💪 耐力加油站：每天慢跑2分钟 或 原地高抬腿30次×2组，增强心肺。');
+            }
+            if (issues.includes('balance')) {
+                suggestions.push('⚖️ 平衡特训：每天单脚站立（左右各30秒，可扶墙），熟练后尝试闭眼5秒。');
+            }
+            if (issues.includes('reaction')) {
+                suggestions.push('⚡ 反应特训：和家长玩“抛接袜子团”或“听口令摸五官”游戏，每天5分钟。');
+            }
+            if (issues.includes('coord')) {
+                suggestions.push('🦘 协调特训：每天“交叉开合跳”20次×2组，或模仿青蛙跳、螃蟹走5米。');
+            }
+            if (issues.includes('core')) {
+                suggestions.push('💪 核心特训：每天平板支撑15秒×3组（可跪姿），或仰卧起坐10次×2组。');
+            }
+
+            // 3. 课时关联专项
+            if (lesson === '1' || lesson === '2' || lesson === '3') {
+                suggestions.push('🎯 反应灵敏加强：周末玩一次“长江黄河追逐跑”或“抢标志物”家庭赛。');
+            } else if (lesson === '4' || lesson === '5') {
+                suggestions.push('🦩 平衡协调专项：每天练习“燕式平衡”和“前后摸脚跳”，记录最好成绩。');
+            } else if (lesson === '6') {
+                suggestions.push('🏆 巩固比赛能力：和家人组织一次“迷你障碍赛”（沙发垫爬行、绕椅子、跳绳）。');
+            }
+
+            // 兜底
+            if (suggestions.length === 0) {
+                suggestions.push('🎉 孩子表现很棒！继续保持每周3次体育锻炼，尝试学习一项新技能（如跳绳花样、拍球）。');
+            }
+
+            // 去重并生成可读文本
+            const unique = [...new Set(suggestions)];
+            let html = '<strong>✨ 为你定制作业（每天选1-2项，轻松坚持）：</strong><br><br>';
+            unique.forEach(item => {
+                html += '• ' + item + '<br>';
+            });
+            html += '<br><span style="font-size:13px; color:#5e7a93;">✅ 建议将计划写在小黑板上，完成打✓，坚持一周会有进步！</span>';
+            resultDiv.innerHTML = html;
+        });
+    })();
+</script>
+</body>
+</html>
